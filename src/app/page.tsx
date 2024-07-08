@@ -1,6 +1,6 @@
 import { db } from "~/server/db";
 
-// export const dynamic = "force-dynamic"; // might not be necessary
+export const dynamic = "force-dynamic"; // might not be necessary
 
 export default async function Home() {
   const posts = await db.query.posts.findMany();
