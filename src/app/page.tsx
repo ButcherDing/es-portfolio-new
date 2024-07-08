@@ -1,11 +1,8 @@
-import { CreatePost } from "~/app/_components/create-post";
-import Link from "next/link";
-import { api } from "~/trpc/server";
 import { db } from "~/server/db";
 
-export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
+// export const dynamic = "force-dynamic"; // might not be necessary
 
+export default async function Home() {
   const posts = await db.query.posts.findMany();
   console.log("posts", posts);
 
@@ -17,22 +14,6 @@ export default async function Home() {
         <div>{post.name}</div>
       ))}
     </main>
-  );
-}
-
-async function CrudShowcase() {
-  const latestPost = await api.post.getLatest();
-
-  return (
-    <div className="w-full max-w-xs">
-      {latestPost ? (
-        <p className="truncate">Your most recent post: {latestPost.name}</p>
-      ) : (
-        <p>You have no posts yet.</p>
-      )}
-
-      <CreatePost />
-    </div>
   );
 }
 
